@@ -1,6 +1,6 @@
 
-// cycle projects and draw everything
 const domBuilder = (function() {
+    // cycle projects and draw everything
     function renderAll(projectArray) {
         const mainContainer = document.getElementById("main-container");
         mainContainer.replaceChildren();

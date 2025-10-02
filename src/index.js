@@ -5,22 +5,45 @@ import { domBuilder } from "./dombuilder.js";
 
 const Application = new App();
 
+// test inputs
+const task = new ToDo("task2", "descdescdesc", "10.12.", 1)
+const task2 = new ToDo("task2", "descdescdesc", "12.12.", 1)
 
-const task = new ToDo("title", "höpinää", "12.12.", 1)
-const task2 = new ToDo("tinen", "höpinää22", "12.12.", 1)
-console.log(task)
-
-const project = new Project("iso projekti");
+const project = new Project("huge project");
 
 project.addToDo(task)
 project.addToDo(task2)
 
-project.removeToDo(task.id)
-
-console.log(project);
-
 Application.addProject(project)
-
 console.log(Application.arr);
 
 domBuilder.renderAll(Application.arr);
+// test inputs
+
+// 
+// Events
+function refreshEvents() {
+    const addProjectButton = document.getElementById("add-project-button");
+    addProjectButton.addEventListener("click", (e) => {
+        // logic
+    });
+
+    const addToDoButtons = document.querySelectorAll("add-todo-button");
+    addToDoButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            // logic
+        })
+    });
+
+    const deleteProjectButton = document.getElementById("delete-project-button");
+    deleteProjectButton.addEventListener("click", (e) => {
+        // logic
+    });
+
+    const deleteToDoButtons = document.querySelectorAll("delete-todo-button");
+    deleteToDoButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+        // logic
+        })
+    });
+}

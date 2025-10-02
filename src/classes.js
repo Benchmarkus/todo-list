@@ -51,11 +51,8 @@ class ToDo {
     }
 
     toggleDone() {
-        if (this.isDone === true) {
-            this.isDone = false;
-        } else {
-            this.isDone = true;
-        }
+        this.isDone = !this.isDone;
+        return this.isDone;
     }
 }
 
