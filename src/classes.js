@@ -1,5 +1,23 @@
 import { v4 as uuidv4 } from 'uuid';
 
+class App {
+    constructor() {
+        this.arr = [];
+    };
+
+    addProject(project) {
+        this.arr.push(project);
+    }
+
+    removeProject(id) {
+        for (let [i, project] of this.arr.entries()) {
+            if (project.id == id) {
+                return this.arr.splice(i, 1);
+            }
+        }
+    }
+}
+
 class Project {
     constructor(name) {
         this.name = name;
@@ -28,8 +46,17 @@ class ToDo {
         this.dueDate = dueDate;
         this.priority = priority;
 
+        this.isDone = false;
         this.id = uuidv4();
+    }
+
+    toggleDone() {
+        if (this.isDone === true) {
+            this.isDone = false;
+        } else {
+            this.isDone = true;
+        }
     }
 }
 
-export { Project, ToDo }
+export { App, Project, ToDo }

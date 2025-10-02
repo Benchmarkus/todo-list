@@ -1,0 +1,22 @@
+html {
+
+}
+
+body {
+
+}
+
+
+#main-container {
+    background-color: rgb(197, 255, 255);
+}
+
+.project-container {
+    background-color: rgb(255, 196, 196);
+}
+
+
+.todo-container {
+    background-color: rgb(121, 66, 66);
+}
+
