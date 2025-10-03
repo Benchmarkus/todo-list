@@ -28,22 +28,32 @@ function refreshEvents() {
         // logic
     });
 
-    const addToDoButtons = document.querySelectorAll("add-todo-button");
+    const addToDoButtons = document.querySelectorAll(".add-todo-button");
     addToDoButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
             // logic
         })
     });
 
-    const deleteProjectButton = document.getElementById("delete-project-button");
+    const deleteProjectButton = document.querySelector(".delete-project-button");
     deleteProjectButton.addEventListener("click", (e) => {
         // logic
     });
 
-    const deleteToDoButtons = document.querySelectorAll("delete-todo-button");
+    const deleteToDoButtons = document.querySelectorAll(".delete-todo-button");
     deleteToDoButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
         // logic
         })
     });
+
+    const expandButtons = document.querySelectorAll(".expand-button");
+    expandButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            console.log(button.id);
+            domBuilder.expandOrCollapseProjectContainer(button.id);
+        })
+    });
 }
+
+refreshEvents()
