@@ -1,9 +1,30 @@
+import { projectCancelLogic, toDoCancelLogic, addProjectLogic, submitProjectFormLogic, submitToDoFormLogic, expandButtonLogic, addToDoButtonLogic, deleteProjectButtonLogic, editProjectButtonLogic, deleteToDoButtonLogic, editToDoButtonLogic } from "./index.js"
 
 const domBuilder = (function() {
+
+    function renderStatics() {
+        const projectForm = document.getElementById("project-form");
+        projectForm.addEventListener("submit", submitProjectFormLogic);
+        
+        const toDoForm = document.getElementById("todo-form");
+        toDoForm.addEventListener("submit", submitToDoFormLogic);
+
+        const addProjectButton = document.getElementById("add-project-button");
+        addProjectButton.addEventListener("click", addProjectLogic);
+
+        const cancelToDoFormButton = document.getElementById("todo-cancel-button");
+        cancelToDoFormButton.addEventListener("click", toDoCancelLogic);
+
+        const cancelProjectFormButton = document.getElementById("project-cancel-button");
+        cancelProjectFormButton.addEventListener("click", projectCancelLogic)
+    }
+
     // cycle projects and draw everything
-    function renderAll(projectArray) {
+    function renderMainContent(projectArray) {
         const mainContainer = document.getElementById("main-container");
-        mainContainer.replaceChildren();
+        mainContainer.replaceChildren("");
+        console.log(mainContainer);
+
 
         for (const project of projectArray) {
             let projectContainer = buildProject(project);
@@ -38,11 +59,13 @@ const domBuilder = (function() {
         newDeleteButton.classList.add("delete-todo-button");
         newDeleteButton.setAttribute("id", todo.id);
         newDeleteButton.textContent = "Delete"
+        newDeleteButton.addEventListener("click", deleteToDoButtonLogic)
 
         const newEditButton = document.createElement("button");
         newEditButton.classList.add("edit-todo-button");
         newEditButton.setAttribute("id", todo.id);
         newEditButton.textContent = "Edit"
+        newEditButton.addEventListener("click", editToDoButtonLogic)
 
         const toDoContainer = document.createElement("div");
         toDoContainer.classList.add("todo-container");
@@ -76,21 +99,25 @@ const domBuilder = (function() {
         newExpandButton.classList.add("expand-button")
         newExpandButton.setAttribute("id", project.id)
         newExpandButton.textContent = ">"
+        newExpandButton.addEventListener("click", expandButtonLogic)
 
         const newAddToDoButton = document.createElement("button");
         newAddToDoButton.classList.add("add-todo-button")
         newAddToDoButton.setAttribute("id", project.id)
         newAddToDoButton.textContent = "+ Add Task"
+        newAddToDoButton.addEventListener("click", addToDoButtonLogic)
 
         const newDeleteButton = document.createElement("button");
         newDeleteButton.classList.add("delete-project-button")
         newDeleteButton.setAttribute("id", project.id)
         newDeleteButton.textContent = "Delete"
+        newDeleteButton.addEventListener("click", deleteProjectButtonLogic)
         
         const newEditButton = document.createElement("button");
         newEditButton.classList.add("edit-project-button")
         newEditButton.setAttribute("id", project.id)
         newEditButton.textContent = "Edit"
+        newEditButton.addEventListener("click", editProjectButtonLogic)
 
         newProjectContainerTitle.appendChild(newExpandButton);
         newProjectContainerTitle.appendChild(newName);
@@ -115,7 +142,7 @@ const domBuilder = (function() {
     }
 
 
-    return { renderAll, expandOrCollapseProjectContainer }
+    return { renderStatics, renderMainContent, expandOrCollapseProjectContainer }
 })();
 
 export { domBuilder }

@@ -9,6 +9,15 @@ class App {
         this.arr.push(project);
     }
 
+    addToDo(projectId, toDoObject) {
+        for (let project of this.arr) {
+            if (project.id == projectId) {
+                project.addToDo(toDoObject);
+                return;
+            };
+        }
+    }
+
     removeProject(id) {
         for (let [i, project] of this.arr.entries()) {
             if (project.id == id) {
@@ -16,6 +25,13 @@ class App {
             }
         }
     }
+
+    removeToDo(toDoIdToRemove) {
+        for (let project of this.arr) {
+            project.removeToDo(toDoIdToRemove);
+        }
+    }
+
 }
 
 class Project {
