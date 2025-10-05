@@ -79,7 +79,15 @@ export function projectCancelLogic(e) {
 }
 
 export function expandButtonLogic(e) {
-    domBuilder.expandOrCollapseProjectContainer(e.target.id);
+    const target = document.querySelector(`div[class="project-container-expand"][id="${e.target.id}"]`);
+
+    if (target.style.display === "none") {
+        target.style.display = "flex"
+        e.target.textContent = "v"
+    } else {
+        target.style.display = "none"
+        e.target.textContent = ">"
+    }
 }
 
 export function addToDoButtonLogic(e) {
@@ -114,7 +122,7 @@ export function deleteToDoButtonLogic(e) {
     Application.removeToDo(e.target.id)
 
     storage.saveAll()
-    
+
     domBuilder.renderMainContent(Application.arr)
 }
 

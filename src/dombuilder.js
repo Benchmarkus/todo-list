@@ -97,7 +97,7 @@ const domBuilder = (function() {
         const newExpandButton = document.createElement("button");
         newExpandButton.classList.add("expand-button")
         newExpandButton.setAttribute("id", project.id)
-        newExpandButton.textContent = ">"
+        newExpandButton.textContent = "v"
         newExpandButton.addEventListener("click", expandButtonLogic)
 
         const newAddToDoButton = document.createElement("button");
@@ -130,18 +130,7 @@ const domBuilder = (function() {
         return newProjectContainer;
     }
 
-    function expandOrCollapseProjectContainer(id) {
-        const target = document.querySelector(`div[class="project-container-expand"][id="${id}"]`);
-
-        if (target.style.display === "none") {
-            target.style.display = "flex"
-        } else {
-            target.style.display = "none"
-        }
-    }
-
-
-    return { renderStatics, renderMainContent, expandOrCollapseProjectContainer }
+    return { renderStatics, renderMainContent }
 })();
 
 export { domBuilder }

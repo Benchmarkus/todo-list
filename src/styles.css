@@ -1,7 +1,11 @@
+:root {
+    --bg-color: rgb(10, 10, 10)
+}
+
 html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-image: url("./assets/bg-img.jpg");
-    background-repeat: no-repeat;
+    background-color: var(--bg-color);
+    color: white;
 }
 
 @font-face {
@@ -9,11 +13,71 @@ html {
     src: url(./assets/PermanentMarker-Regular.ttf);
 }
 
+@font-face {
+    font-family: textFont;
+    src: url(./assets/Handlee-Regular.ttf);
+}
+
 body {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     width: clamp(600px,70%,1000px);
+    background-color: var(--bg-color);
+}
+
+button:hover {
+    filter: brightness(.8);
+    cursor: pointer;
+}
+
+button {
+    border: 0;
+    background-color: rgb(150, 0, 150);
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    height: 30px;
+}
+
+#add-project-button {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.expand-button {
+    width: 20px;
+    height: 25px;
+}
+
+.delete-project-button {
+    width: 70px;
+    background-color: darkred
+}
+
+.edit-project-button {
+    background-color: darkgoldenrod;
+    width: 70px;
+}
+
+.add-todo-button {
+    background-color: darkgreen;
+    width: 100px;
+}
+
+.delete-todo-button {
+    width: 70px;
+    background-color: rgb(187, 0, 0)
+}
+
+.edit-todo-button {
+    background-color: rgb(218, 160, 13);
+    width: 70px;
+}
+
+.nav-container {
+    margin: 20px;
 }
 
 h1 {
@@ -23,29 +87,29 @@ h1 {
     font-family: h1Font;
 }
 
+.project-container-title :not(button) {
+    font-family: textFont;
+    font-size: 18px;
+}
 
-#main-container {
-    background-color: rgb(197, 255, 255);
+.project-container-expand :not(button) {
+    font-family: textFont;
+    font-size: 18px;
 }
 
 .project-container {
-    background-color: rgb(255, 196, 196);
+    border-radius: 10px;
+    background-color: rgb(39, 39, 39);
+    margin-bottom: 10px;
 }
 
 .project-container-title {
-    padding: 0 20px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 40px auto min-content min-content min-content;
+    padding: 5px 20px;
     gap: 10px;
     align-items: center;
-    height: 60px;
-}
-
-.project-container-title button {
-    height: 30px;
-}
-
-.project-name {
-    flex-grow: 1;
+    min-height: 60px;
 }
 
 .project-container-expand {
@@ -53,38 +117,43 @@ h1 {
     flex-direction: column;
 }
 
+.project-name {
+    flex-grow: 1;
+    font-weight: bold;
+}
+
 .todo-container {
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 150px auto 100px 30px min-content min-content;
     align-items: center;
-    gap: 20px;
-    height: 40px;
-    background-color: rgb(209, 195, 195);
+    gap: 10px;
+    min-height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    padding-right: 20px;
+    background-color: rgb(70, 70, 70);
 }
 
-.todo-container > * {
-    
+.todo-container:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
-.todo-title {
-    flex-grow: 5; 
-}
-.todo-desc {
-    flex-grow: 5;
-}
-.todo-duedate {
-    text-align: end;
-}
-.todo-priority {
-    text-align: end;
-}
-.delete-todo-button {
-    width: 30px;
-    flex-grow: 1;
-}
-.edit-todo-button {
-    width: 30px;
-    flex-grow: 1;
+.insert-dialog {
+    width: 250px;
+    position: fixed;
+    top: 20%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+input {
+    margin-bottom: 10px;
+}
