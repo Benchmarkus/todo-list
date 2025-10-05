@@ -132,10 +132,10 @@ const domBuilder = (function() {
 
     function expandOrCollapseProjectContainer(id) {
         const target = document.querySelector(`div[class="project-container-expand"][id="${id}"]`);
-        console.log(target);
+
         if (target.style.display === "none") {
             target.style.display = "flex"
-        }   else {
+        } else {
             target.style.display = "none"
         }
     }

@@ -38,7 +38,7 @@ class App {
             if (project.id == parentId) {
                 for (const todo of project.todoArr) {
                     if (todo.id == toDoId) {
-                        todo.name = newToDoObject.name
+                        todo.title = newToDoObject.title
                         todo.desc = newToDoObject.desc
                         todo.dueDate = newToDoObject.dueDate
                         todo.priority = newToDoObject.priority
@@ -79,11 +79,15 @@ class App {
 }
 
 class Project {
-    constructor(name) {
+    constructor(name, id=undefined) {
         this.name = name;
         this.todoArr = [];
 
-        this.id = uuidv4();
+        if (id) {
+            this.id = id;
+        } else {
+            this.id = uuidv4();
+        }
     }
 
     addToDo(todo) {
@@ -100,7 +104,7 @@ class Project {
 }
 
 class ToDo {
-    constructor(title, desc, dueDate, priority, parentId = undefined) {
+    constructor(title, desc, dueDate, priority, parentId = undefined, id = undefined) {
         this.title = title;
         this.desc = desc;
         this.dueDate = dueDate;
@@ -108,7 +112,12 @@ class ToDo {
 
         this.parentId = parentId
         this.isDone = false;
-        this.id = uuidv4();
+
+        if (id) {
+            this.id = id;
+        } else {
+            this.id = uuidv4();
+        }
     }
 
     toggleDone() {
