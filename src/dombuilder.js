@@ -23,7 +23,6 @@ const domBuilder = (function() {
     function renderMainContent(projectArray) {
         const mainContainer = document.getElementById("main-container");
         mainContainer.replaceChildren("");
-        console.log(mainContainer);
 
 
         for (const project of projectArray) {

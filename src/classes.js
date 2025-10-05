@@ -5,6 +5,50 @@ class App {
         this.arr = [];
     };
 
+    getProject(projectId) {
+        for (let project of this.arr) {
+            if (project.id == projectId) {
+                return project;
+            };
+        }
+    }
+
+    getToDo(toDoId) {
+        for (let project of this.arr) {
+            for (let todo of project.todoArr) {
+                if (todo.id == toDoId) {
+                    return todo;
+                }
+            }
+        }
+    }
+
+    editProject(projectId, newProjectObject) {
+        for (let project of this.arr) {
+            if (project.id == projectId) {
+                project.name = newProjectObject.name
+                return
+            };
+        }
+    }
+
+    // fix this
+    editToDo(parentId, toDoId, newToDoObject) {
+        for (let project of this.arr) {
+            if (project.id == parentId) {
+                for (const todo of project.todoArr) {
+                    if (todo.id == toDoId) {
+                        todo.name = newToDoObject.name
+                        todo.desc = newToDoObject.desc
+                        todo.dueDate = newToDoObject.dueDate
+                        todo.priority = newToDoObject.priority
+                        return
+                    }
+                }
+            }
+        }
+    }
+
     addProject(project) {
         this.arr.push(project);
     }
@@ -56,12 +100,13 @@ class Project {
 }
 
 class ToDo {
-    constructor(title, desc, dueDate, priority) {
+    constructor(title, desc, dueDate, priority, parentId = undefined) {
         this.title = title;
         this.desc = desc;
         this.dueDate = dueDate;
         this.priority = priority;
 
+        this.parentId = parentId
         this.isDone = false;
         this.id = uuidv4();
     }

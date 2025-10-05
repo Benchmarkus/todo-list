@@ -25,8 +25,14 @@ export function submitProjectFormLogic(e) {
     e.preventDefault();
         
     const projectName = document.querySelector("#form-project-name").value;
+    const projectId = document.getElementById("project-form").dataid;
+    const newProjectObject = new Project(projectName);
 
-    Application.addProject(new Project(projectName));
+    if (document.getElementById("project-form").editMode) {
+        Application.editProject(projectId, newProjectObject);
+    } else {
+        Application.addProject(newProjectObject);
+    }
 
     document.getElementById("project-form").reset();
     
@@ -38,16 +44,22 @@ export function submitProjectFormLogic(e) {
 export function submitToDoFormLogic(e) {
     e.preventDefault();
 
-    const dataIdFromDialog = document.getElementById("todo-dialog").dataid
+    const parentId = document.getElementById("todo-form").parentId
 
-    const toDoName = document.querySelector("#form-todo-name").value;
+    const toDoName = document.getElementById("form-todo-name").value;
     const toDoDesc = document.querySelector("#form-todo-desc").value;
     const toDoDuedate = document.querySelector("#form-todo-duedate").value;
     const toDoPriority = document.querySelector("input[name='priority']:checked").value;
 
-    const newToDoObject = new ToDo(toDoName, toDoDesc, toDoDuedate, toDoPriority);
-    Application.addToDo(dataIdFromDialog, newToDoObject)
+    const newToDoObject = new ToDo(toDoName, toDoDesc, toDoDuedate, toDoPriority, parentId);
 
+    console.log(document.getElementById("todo-form").editMode);
+    if (document.getElementById("todo-form").editMode) {
+        const toDoId = document.getElementById("todo-form").toDoId
+        Application.editToDo(parentId, toDoId, newToDoObject)
+    } else {
+        Application.addToDo(parentId, newToDoObject)
+    }
     document.getElementById("todo-form").reset();
     
     document.getElementById("todo-dialog").close();
@@ -57,6 +69,8 @@ export function submitToDoFormLogic(e) {
 }
 
 export function addProjectLogic(e) {
+    document.getElementById("project-form").editMode = false;
+    document.getElementById("project-confirm-button").textContent = "Add Project";
     document.getElementById("project-dialog").showModal();
 }
 
@@ -73,8 +87,9 @@ export function expandButtonLogic(e) {
 }
 
 export function addToDoButtonLogic(e) {
-    console.log(e.target.id);
-    document.getElementById("todo-dialog").dataid = e.target.id;
+    document.getElementById("todo-form").editMode = false;
+    document.getElementById("todo-confirm-button").textContent = "Add task";
+    document.getElementById("todo-form").parentId = e.target.id;
     document.getElementById("todo-dialog").showModal();
 }
 
@@ -84,16 +99,39 @@ export function deleteProjectButtonLogic(e) {
 }
 
 export function editProjectButtonLogic(e) {
-    // tbd
+    document.getElementById("project-form").editMode = true;
+    document.getElementById("project-form").dataid = e.target.id;
+    document.getElementById("project-confirm-button").textContent = "Confirm";
+    
+    const currentProject = Application.getProject(e.target.id);
+    document.getElementById("form-project-name").value = currentProject.name;
+    
+    document.getElementById("project-dialog").showModal();
 }
 
 export function deleteToDoButtonLogic(e) {
     Application.removeToDo(e.target.id)
     domBuilder.renderMainContent(Application.arr)
-
+    
 }
 
 export function editToDoButtonLogic(e) {
-    // tbd
+    const toDoId = e.target.id;
+    const currentToDo = Application.getToDo(toDoId);
+    
+    const parentId = currentToDo.parentId;
+
+    document.getElementById("todo-form").editMode = true;
+    document.getElementById("todo-form").toDoId = toDoId;
+    document.getElementById("todo-form").parentId = parentId;
+    document.getElementById("todo-confirm-button").textContent = "Confirm";
+    
+    // populate form fields
+    document.getElementById("form-todo-name").value = currentToDo.title;
+    document.getElementById("form-todo-desc").value = currentToDo.desc;
+    document.getElementById("form-todo-duedate").value = currentToDo.dueDate;
+    document.getElementById(`priority-${currentToDo.priority}`).toggleAttribute("checked")
+    
+    document.getElementById("todo-dialog").showModal();
 }
 
